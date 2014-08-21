@@ -73,7 +73,7 @@ The number of characters of the file content hash to prefix the file name with.
 Type: `Array`
 Default value: `[]`
 
-List of exclusions from md5 content hashing.
+List of files/folders to exclude from md5 content hashing.
 
 ### Usage Example
 
