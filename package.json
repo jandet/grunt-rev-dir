@@ -2,22 +2,22 @@
   "name": "grunt-rev-dir",
   "description": "Directory name revisioning through content hashing",
   "version": "0.1.0",
-  "homepage": "https://github.com/jandet/grunt-rev-dir",
+  "homepage": "https://github.com/jandet/grunt-revdir",
   "author": {
     "name": "Janessa Det",
     "email": "jandet@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/jandet/grunt-rev-dir.git"
+    "url": "git://github.com/jandet/grunt-revdir.git"
   },
   "bugs": {
-    "url": "https://github.com/jandet/grunt-rev-dir/issues"
+    "url": "https://github.com/jandet/grunt-revdir/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/jandet/grunt-rev-dir/blob/master/LICENSE-MIT"
+      "url": "https://github.com/jandet/grunt-revdir/blob/master/LICENSE-MIT"
     }
   ],
   "main": "Gruntfile.js",
