@@ -1,7 +1,7 @@
 {
   "name": "grunt-revdir",
   "description": "Directory name revisioning through content hashing",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "Janessa Det <jandet@gmail.com>",
   "repository": {
     "type": "git",
