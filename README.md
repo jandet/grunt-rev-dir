@@ -35,13 +35,13 @@ grunt.initConfig({
       encoding: 'utf8',
       algorithm: 'md5',
       length: 8,
-      exclusions: ['*.html']
+      exclusions: ['*.gif']
     },
     assets: {
       files: [{
         src: [
-          'img/**/*.{jpg,jpeg,gif,png}',
-          'fonts/**/*.{eot,svg,ttf,woff}'
+          'img/',
+          'fonts/'
         ]
       }]
     }
