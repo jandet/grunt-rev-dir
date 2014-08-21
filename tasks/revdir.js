@@ -15,7 +15,7 @@ var fs = require('fs'),
 
 module.exports = function(grunt) {
 
-  grunt.registerMultiTask('rev_dir', 'Prefix static asset folder names with a content hash', function() {
+  grunt.registerMultiTask('revdir', 'Prefix static asset folder names with a content hash', function() {
 
     var options = this.options({
       encoding: 'utf8',
@@ -50,10 +50,11 @@ module.exports = function(grunt) {
 
         revdir.summary[dirpath] = outPath;
         grunt.log.write(dirpath + ' ').ok(renamed);
-
-        done(outPath);
       });
     });
+
+    grunt.revidr = revdir;
+    done();
   });
 
 };

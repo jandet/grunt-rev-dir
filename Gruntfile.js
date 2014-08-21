@@ -39,7 +39,7 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    rev_dir: {
+    revdir: {
       default_options: {
         src: ['tmp/assets']
       },
