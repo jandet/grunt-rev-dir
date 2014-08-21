@@ -6,13 +6,13 @@ _If you haven't used [grunt][] before, be sure to check out the [Getting Started
 From the same directory as your project's [Gruntfile][Getting Started] and [package.json][], install this plugin with the following command:
 
 ```bash
-npm install grunt-rev-dir --save-dev
+npm install grunt-revdir --save-dev
 ```
 
 Once that's done, add this line to your project's Gruntfile:
 
 ```js
-grunt.loadNpmTasks('grunt-rev-dir');
+grunt.loadNpmTasks('grunt-revdir');
 ```
 
 If the plugin has been installed correctly, running `grunt --help` at the command line should list the newly-installed plugin's task or tasks. In addition, the plugin should be listed in package.json as a `devDependency`, which ensures that it will be installed whenever the `npm install` command is run.
@@ -21,16 +21,16 @@ If the plugin has been installed correctly, running `grunt --help` at the comman
 [Getting Started]: https://github.com/gruntjs/grunt/blob/devel/docs/getting_started.md
 [package.json]: https://npmjs.org/doc/json.html
 
-## The "rev_dir" task
+## The "revdir" task
 
-Use the **rev_dir** task to prepend a revision hash to a directory name according to its contents (the contents of its containing files).
+Use the **revdir** task to prepend a revision hash to a directory name according to its contents (the contents of its containing files).
 
 ### Overview
-In your project's Gruntfile, add a section named `rev_dir` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `revdir` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  rev_dir: {
+  revdir: {
     options: {
       encoding: 'utf8',
       algorithm: 'md5',
