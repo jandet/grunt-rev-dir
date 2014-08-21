@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jandet/grunt-revdir.svg?branch=master)](https://travis-ci.org/jandet/grunt-revdir)
+
 > Directory name revisioning through content hashing
 
 ## Getting Started
