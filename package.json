@@ -1,5 +1,5 @@
 {
-  "name": "grunt-rev-dir",
+  "name": "grunt-revdir",
   "description": "Directory name revisioning through content hashing",
   "version": "0.1.0",
   "homepage": "https://github.com/jandet/grunt-revdir",
