@@ -69,7 +69,7 @@ Default value: `8`
 
 The number of characters of the file content hash to prefix the file name with.
 
-#### options.length
+#### options.exclude
 Type: `Array`
 Default value: `[]`
 

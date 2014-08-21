@@ -62,5 +62,4 @@ module.exports = function(grunt) {
 
     grunt.revidr = revdir;
   });
-
 };
