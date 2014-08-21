@@ -1,6 +1,4 @@
-# grunt-rev [![Build Status](https://travis-ci.org/cbas/grunt-rev.png)](https://travis-ci.org/cbas/grunt-rev)
-
-> Static file asset revisioning through content hashing
+> Directory name revisioning through content hashing
 
 ## Getting Started
 _If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide._
@@ -8,13 +6,13 @@ _If you haven't used [grunt][] before, be sure to check out the [Getting Started
 From the same directory as your project's [Gruntfile][Getting Started] and [package.json][], install this plugin with the following command:
 
 ```bash
-npm install grunt-rev --save-dev
+npm install grunt-rev-dir --save-dev
 ```
 
 Once that's done, add this line to your project's Gruntfile:
 
 ```js
-grunt.loadNpmTasks('grunt-rev');
+grunt.loadNpmTasks('grunt-rev-dir');
 ```
 
 If the plugin has been installed correctly, running `grunt --help` at the command line should list the newly-installed plugin's task or tasks. In addition, the plugin should be listed in package.json as a `devDependency`, which ensures that it will be installed whenever the `npm install` command is run.
@@ -23,20 +21,21 @@ If the plugin has been installed correctly, running `grunt --help` at the comman
 [Getting Started]: https://github.com/gruntjs/grunt/blob/devel/docs/getting_started.md
 [package.json]: https://npmjs.org/doc/json.html
 
-## The "rev" task
+## The "rev_dir" task
 
-Use the **rev** task together with [yeoman/grunt-usemin](https://github.com/yeoman/grunt-usemin) for cache busting of static files in your app. This allows them to be cached forever by the browser.
+Use the **rev_dir** task to prepend a revision hash to a directory name according to its contents (the contents of its containing files).
 
 ### Overview
-In your project's Gruntfile, add a section named `rev` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `rev_dir` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  rev: {
+  rev_dir: {
     options: {
       encoding: 'utf8',
       algorithm: 'md5',
-      length: 8
+      length: 8,
+      exclusions: ['*.html']
     },
     assets: {
       files: [{
@@ -70,23 +69,29 @@ Default value: `8`
 
 The number of characters of the file content hash to prefix the file name with.
 
-### Usage Examples
+#### options.length
+Type: `Array`
+Default value: `[]`
+
+List of exclusions from md5 content hashing.
+
+### Usage Example
 
 #### Basic Asset Revving
-This will rename `app.js` and `app.css` with an 8 character long hash prefix. For example `js/9becff3a.app.js` and `css/ae35dd05.app.css`. The hash value depends on the file contents.
+This will rename `scripts` and `css` with an 8 character long hash prefix. For example `9becff3a-scripts` and `ae35dd05-css`. The hash value depends on the directory's containing file's contents.
 
 ```js
 grunt.initConfig({
   rev: {
     files: {
-      src: ['scripts/app.js', 'css/app.css']
+      src: ['scripts', 'css']
     }
   }
 })
 ```
 
 #### Custom Options
-Change the algorithm or length to style the generated asset file names. Note that the `usemin` companion task requires at least one anycase hexadecimal character to prefix the file name.
+Change the algorithm or length to style the generated asset file names.
 
 ```js
 grunt.initConfig({
@@ -96,7 +101,7 @@ grunt.initConfig({
       length: 4
     },
     files: {
-      src: ['**/*.{js,css,png,jpg}']
+      src: ['scripts']
     }
   }
 })
