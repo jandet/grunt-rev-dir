@@ -33,7 +33,7 @@ module.exports = function(grunt) {
       test: {
         flatten: true,
         expand: true,
-        src: ['test/fixtures/*.txt'],
+        src: ['test/fixtures/assets'],
         dest: 'tmp/',
       },
     },
@@ -41,20 +41,20 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     rev_dir: {
       default_options: {
-        src: ['tmp']
+        src: ['tmp/assets']
       },
       custom_options: {
         options: {
           algorithm: 'sha1',
           length: 4
         },
-        src: ['tmp']
+        src: ['tmp/assets']
       },
       international_options: {
         options: {
           encoding: 'utf8'
         },
-        src: ['tmp']
+        src: ['tmp/assets']
       },
     },
 
@@ -76,7 +76,7 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'copy', 'rev', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'copy', 'rev_dir', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);

@@ -24,14 +24,16 @@ module.exports = function(grunt) {
       exclude: []
     });
 
+    var revdir = grunt.revdir || {summary: {}};
     var done = this.async();
 
     this.filesSrc.forEach(function(dirpath) {
       var hash = crypto.createHash(options.algorithm);
       grunt.log.verbose.write('Hashing ' + dirpath + '...');
 
-      recursive('testdir', [], function(err, files) {
+      recursive(dirpath, options.exclude, function(err, files) {
         files.forEach(function(f) {
+          grunt.log.verbose.write('Hashing file ' + f + '...');
           hash.update(grunt.file.read(f, options.encoding));
         });
 
@@ -40,11 +42,16 @@ module.exports = function(grunt) {
           renamed = [prefix, path.basename(dirpath)].join('-'),
           outPath = path.resolve(path.dirname(dirpath), renamed);
 
-        grunt.verbose.ok().ok(hash);
-        fs.renameSync(dirpath, outPath);
+        if (grunt.file.exists(outPath)) {
+          grunt.log.write('No content change ').error(outPath + ' already exists');
+        } else {
+          fs.renameSync(dirpath, outPath);
+        }
+
+        revdir.summary[dirpath] = outPath;
         grunt.log.write(dirpath + ' ').ok(renamed);
 
-        done(renamed);
+        done(outPath);
       });
     });
   });
