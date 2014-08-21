@@ -35,7 +35,7 @@ grunt.initConfig({
       encoding: 'utf8',
       algorithm: 'md5',
       length: 8,
-      exclusions: ['*.gif']
+      exclude: ['*.gif']
     },
     assets: {
       files: [{
