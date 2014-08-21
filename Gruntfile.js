@@ -39,22 +39,22 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    rev: {
+    rev_dir: {
       default_options: {
-        src: ['tmp/default.txt']
+        src: ['tmp']
       },
       custom_options: {
         options: {
           algorithm: 'sha1',
           length: 4
         },
-        src: ['tmp/custom.txt']
+        src: ['tmp']
       },
       international_options: {
         options: {
           encoding: 'utf8'
         },
-        src: ['tmp/international.txt']
+        src: ['tmp']
       },
     },
 
