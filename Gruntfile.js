@@ -31,9 +31,9 @@ module.exports = function(grunt) {
     // Work on a copy of the files because they will be renamed during testing.
     copy: {
       test: {
-        flatten: true,
         expand: true,
-        src: ['test/fixtures/assets'],
+        cwd: 'test/fixtures',
+        src: ['**'],
         dest: 'tmp/',
       },
     },
@@ -41,20 +41,20 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     revdir: {
       default_options: {
-        src: ['tmp/assets']
+        src: ['tmp/default/assets', 'tmp/default/images']
       },
       custom_options: {
         options: {
           algorithm: 'sha1',
           length: 4
         },
-        src: ['tmp/assets']
+        src: ['tmp/custom/assets', 'tmp/custom/images']
       },
-      international_options: {
+      exclusion_options: {
         options: {
-          encoding: 'utf8'
+          exclude: ['*.gif']
         },
-        src: ['tmp/assets']
+        src: ['tmp/exclusion/assets', 'tmp/exclusion/images']
       },
     },
 
@@ -76,7 +76,7 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'copy', 'rev_dir', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'copy', 'revdir', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);

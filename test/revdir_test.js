@@ -30,24 +30,30 @@ exports.rev = {
   default_options: function(test) {
     test.expect(1);
 
-    var exists = grunt.file.exists('tmp/9e107d9d.default.txt');
-    test.ok(exists, '8 character MD5 hash prefix');
+    var assetsExists = grunt.file.exists('tmp/a8aadb66-assets');
+    var imagesExists = grunt.file.exists('tmp/72f5dc3f-images');
+    test.ok(assetsExists, '8 character MD5 hash prefix of assets');
+    test.ok(imagesExists, '8 character MD5 hash prefix of images');
 
     test.done();
   },
   custom_options: function(test) {
     test.expect(1);
 
-    var exists = grunt.file.exists('tmp/2fd4.custom.txt');
-    test.ok(exists, '4 character SHA-1 hash prefix');
+    var assetsExists = grunt.file.exists('tmp/b6e3-assets');
+    var imagesExists = grunt.file.exists('tmp/1e43-images');
+    test.ok(assetsExists, '4 character SHA-1 hash prefix of assets');
+    test.ok(imagesExists, '4 character SHA-1 hash prefix of images');
 
     test.done();
   },
-  international_options: function(test) {
+  exclusion_options: function(test) {
     test.expect(1);
 
-    var exists = grunt.file.exists('tmp/faa07745.international.txt');
-    test.ok(exists, '8 character MD5 hash prefix for international content');
+    var assetsExists = grunt.file.exists('tmp/a8aadb66-assets');
+    var imagesExists = grunt.file.exists('tmp/7653cca1-images');
+    test.ok(assetsExists, '8 character MD5 hash prefix of assets');
+    test.ok(imagesExists, '8 character MD5 hash prefix of images with exclusions');
 
     test.done();
   }

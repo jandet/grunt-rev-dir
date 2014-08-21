@@ -26,8 +26,10 @@ module.exports = function(grunt) {
 
     var revdir = grunt.revdir || {summary: {}};
     var done = this.async();
+    var fileCount = 0;
+    var files = this.filesSrc;
 
-    this.filesSrc.forEach(function(dirpath) {
+    files.forEach(function(dirpath) {
       var hash = crypto.createHash(options.algorithm);
       grunt.log.verbose.write('Hashing ' + dirpath + '...');
 
@@ -50,11 +52,15 @@ module.exports = function(grunt) {
 
         revdir.summary[dirpath] = outPath;
         grunt.log.write(dirpath + ' ').ok(renamed);
+
+        fileCount++;
+        if (fileCount === files.length) {
+          done();
+        }
       });
     });
 
     grunt.revidr = revdir;
-    done();
   });
 
 };
