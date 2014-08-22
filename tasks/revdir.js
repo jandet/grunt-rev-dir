@@ -50,8 +50,9 @@ module.exports = function(grunt) {
           fs.renameSync(dirpath, outPath);
         }
 
-        revdir.summary[dirpath] = outPath;
-        grunt.log.write(dirpath + ' ').ok(renamed);
+        var renamedPath = [path.dirname(dirpath), renamed].join('/');
+        revdir.summary[dirpath] = renamedPath;
+        grunt.log.write(dirpath + ' ').ok(renamedPath);
 
         fileCount++;
         if (fileCount === filesSrc.length) {
