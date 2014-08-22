@@ -27,9 +27,9 @@ module.exports = function(grunt) {
     var revdir = grunt.revdir || {summary: {}};
     var done = this.async();
     var fileCount = 0;
-    var files = this.filesSrc;
+    var filesSrc = this.filesSrc;
 
-    files.forEach(function(dirpath) {
+    filesSrc.forEach(function(dirpath) {
       var hash = crypto.createHash(options.algorithm);
       grunt.log.verbose.write('Hashing ' + dirpath + '...');
 
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
         grunt.log.write(dirpath + ' ').ok(renamed);
 
         fileCount++;
-        if (fileCount === files.length) {
+        if (fileCount === filesSrc.length) {
           grunt.revdir = revdir;
           done();
         }
