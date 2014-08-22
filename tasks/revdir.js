@@ -55,11 +55,10 @@ module.exports = function(grunt) {
 
         fileCount++;
         if (fileCount === files.length) {
+          grunt.revdir = revdir;
           done();
         }
       });
     });
-
-    grunt.revidr = revdir;
   });
 };
