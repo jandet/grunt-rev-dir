@@ -27,38 +27,48 @@ module.exports = function(grunt) {
     var revdir = grunt.revdir || {summary: {}};
     var done = this.async();
     var fileCount = 0;
-    var filesSrc = this.filesSrc;
+    var numFiles = this.filesSrc.length;
 
-    filesSrc.forEach(function(dirpath) {
-      var hash = crypto.createHash(options.algorithm);
-      grunt.log.verbose.write('Hashing ' + dirpath + '...');
+    this.files.forEach(function(fileObject) {
+      fileObject.src.forEach(function(file) {
+        var hash = crypto.createHash(options.algorithm),
+            dirpath = file,
+            destpath = fileObject.dest;
 
-      recursive(dirpath, options.exclude, function(err, files) {
-        files.forEach(function(f) {
-          grunt.log.verbose.write('Hashing file ' + f + '...');
-          hash.update(grunt.file.read(f, options.encoding));
+        grunt.log.verbose.write('Hashing ' + dirpath + '...').ok();
+
+        recursive(dirpath, options.exclude, function(err, files) {
+          files.forEach(function(f) {
+            grunt.log.verbose.write('Hashing file ' + f + '...').ok();
+            hash.update(grunt.file.read(f, options.encoding));
+          });
+
+          var hashStr = hash.digest('hex'),
+            prefix = hashStr.slice(0, options.length),
+            renamed = [prefix, path.basename(dirpath)].join('-'),
+            outPath = path.resolve(path.dirname(dirpath), renamed);
+
+          if (grunt.file.exists(outPath)) {
+            grunt.log.write('No content change ').ok(outPath + ' already exists');
+          } else if (options.overwrite && !destpath) {
+            fs.renameSync(dirpath, outPath);
+          } else {
+            grunt.file.recurse(dirpath, function(abspath, rootdir, subdir, filename) {
+              var dest = [destpath || path.dirname(dirpath), renamed, subdir, filename].join('/');
+              grunt.file.copy(abspath, dest);
+            });
+          }
+
+          var renamedPath = [destpath || path.dirname(dirpath), renamed].join('/');
+          revdir.summary[dirpath] = renamedPath;
+          grunt.log.write(dirpath + ' ').ok(renamedPath);
+
+          fileCount++;
+          if (fileCount === numFiles) {
+            grunt.revdir = revdir;
+            done();
+          }
         });
-
-        var hashStr = hash.digest('hex'),
-          prefix = hashStr.slice(0, options.length),
-          renamed = [prefix, path.basename(dirpath)].join('-'),
-          outPath = path.resolve(path.dirname(dirpath), renamed);
-
-        if (grunt.file.exists(outPath)) {
-          grunt.log.write('No content change ').error(outPath + ' already exists');
-        } else {
-          fs.renameSync(dirpath, outPath);
-        }
-
-        var renamedPath = [path.dirname(dirpath), renamed].join('/');
-        revdir.summary[dirpath] = renamedPath;
-        grunt.log.write(dirpath + ' ').ok(renamedPath);
-
-        fileCount++;
-        if (fileCount === filesSrc.length) {
-          grunt.revdir = revdir;
-          done();
-        }
       });
     });
   });
