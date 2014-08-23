@@ -77,6 +77,12 @@ Default value: `[]`
 
 List of files/folders to exclude from md5 content hashing.
 
+#### options.overwrite
+Type: `boolean`
+Default value: `true`
+
+When dest is not provided, whether to overwrite src with hashed name (true) or create a copy (false).
+
 ### Usage Example
 
 #### Basic Asset Revving
@@ -93,7 +99,7 @@ grunt.initConfig({
 ```
 
 #### Custom Options
-Change the algorithm or length to style the generated asset file names.
+Change the algorithm or length to style the generated asset file names.  Specify a destination to put the hash-named copy of the directory.
 
 ```js
 grunt.initConfig({
@@ -103,7 +109,8 @@ grunt.initConfig({
       length: 4
     },
     files: {
-      src: ['scripts']
+      src: ['scripts'],
+      dest: 'build'
     }
   }
 })
