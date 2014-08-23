@@ -21,7 +21,8 @@ module.exports = function(grunt) {
       encoding: 'utf8',
       algorithm: 'md5',
       length: 8,
-      exclude: []
+      exclude: [],
+      overwrite: true
     });
 
     var revdir = grunt.revdir || {summary: {}};
