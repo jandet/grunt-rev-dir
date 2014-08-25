@@ -31,10 +31,26 @@ module.exports = function(grunt) {
     // Work on a copy of the files because they will be renamed during testing.
     copy: {
       test: {
-        expand: true,
-        cwd: 'test/fixtures',
-        src: ['**'],
-        dest: 'tmp/',
+        files: [
+          {
+            expand: true,
+            cwd: 'test/fixtures/',
+            src: ['**'],
+            dest: 'tmp/default',
+          },
+          {
+            expand: true,
+            cwd: 'test/fixtures/',
+            src: ['**'],
+            dest: 'tmp/custom',
+          },
+          {
+            expand: true,
+            cwd: 'test/fixtures/',
+            src: ['**'],
+            dest: 'tmp/exclusion',
+          }
+        ]
       },
     },
 
@@ -48,11 +64,13 @@ module.exports = function(grunt) {
           algorithm: 'sha1',
           length: 4
         },
-        src: ['tmp/custom/assets', 'tmp/custom/images']
+        src: ['tmp/custom/assets', 'tmp/custom/images'],
+        dest: ['tmp/result']
       },
       exclusion_options: {
         options: {
-          exclude: ['*.gif']
+          exclude: ['*.gif'],
+          overwrite: false
         },
         src: ['tmp/exclusion/assets', 'tmp/exclusion/images']
       },

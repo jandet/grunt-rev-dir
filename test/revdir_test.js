@@ -40,20 +40,25 @@ exports.rev = {
   custom_options: function(test) {
     test.expect(2);
 
-    var assetsExists = grunt.file.exists('tmp/custom/b6e3-assets');
-    var imagesExists = grunt.file.exists('tmp/custom/1e43-images');
+    var assetsExists = grunt.file.exists('tmp/result/b6e3-assets');
+    var imagesExists = grunt.file.exists('tmp/result/1e43-images');
     test.ok(assetsExists, '4 character SHA-1 hash prefix of assets');
     test.ok(imagesExists, '4 character SHA-1 hash prefix of images');
 
     test.done();
   },
   exclusion_options: function(test) {
-    test.expect(2);
+    test.expect(4);
 
     var assetsExists = grunt.file.exists('tmp/exclusion/a8aadb66-assets');
     var imagesExists = grunt.file.exists('tmp/exclusion/7653cca1-images');
     test.ok(assetsExists, '8 character MD5 hash prefix of assets');
     test.ok(imagesExists, '8 character MD5 hash prefix of images with exclusions');
+
+    var originalAssetsExists = grunt.file.exists('tmp/exclusion/assets');
+    var originalImagesExists = grunt.file.exists('tmp/exclusion/images');
+    test.ok(originalAssetsExists, 'original assets were not overwritten');
+    test.ok(originalImagesExists, 'original images were not overwritten');
 
     test.done();
   }
